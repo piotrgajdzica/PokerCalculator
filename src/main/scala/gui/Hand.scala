@@ -22,8 +22,8 @@ class Hand(val hand: Array[String], val deck: Deck, calculateBoard: CalculateBoa
   var flopButton: Button = new Button
 
 
-  val activeCardURL: String = "images/card_back_green.png"
-  val unactiveCardURL: String = "images/card_back_black.png"
+  val activeCardURL: String = "../card_back_green.png"
+  val unactiveCardURL: String = "../card_back_black.png"
   val activeCard: ImageIcon = getImage(activeCardURL, WIDTH, HEIGHT)
   val unactiveCard: ImageIcon = getImage(unactiveCardURL, WIDTH, HEIGHT)
 
@@ -51,11 +51,11 @@ class Hand(val hand: Array[String], val deck: Deck, calculateBoard: CalculateBoa
 
 
   def getImage(path: String, width: Int, height: Int): ImageIcon = {
-    var imageIcon = new ImageIcon(getClass().getResource(path).getPath); // load the image to a imageIcon
-    var image = imageIcon.getImage(); // transform it
+    var imageIcon = new ImageIcon(getClass.getResource(path).getPath); // load the image to a imageIcon
+    var image = imageIcon.getImage; // transform it
     var newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-    imageIcon = new ImageIcon(newimg);
-    return imageIcon
+    imageIcon = new ImageIcon(newimg)
+    imageIcon
   }
 
   def createNewHandLabel(activeCard: ImageIcon, unactiveCard: ImageIcon, cardNumber: Int,  WIDTH: Int, HEIGHT: Int, borderSize: Int, rec: Dimension): Label = {
@@ -116,7 +116,7 @@ class Hand(val hand: Array[String], val deck: Deck, calculateBoard: CalculateBoa
 
 
     }
-    return label
+    label
   }
 
 

@@ -15,8 +15,8 @@ class Table (val table: Array[String], deck: Deck, hand: Hand, calculateBoard: C
   val HEIGHT = 120
   val rec = new Dimension(WIDTH,HEIGHT)
 
-  val activeCardURL: String = "images/card_back_green.png"
-  val unactiveCardURL: String = "images/card_back_black.png"
+  val activeCardURL: String = "../card_back_green.png"
+  val unactiveCardURL: String = "../card_back_black.png"
   val activeCard: ImageIcon = getImage(activeCardURL, WIDTH, HEIGHT)
   val unactiveCard: ImageIcon = getImage(unactiveCardURL, WIDTH, HEIGHT)
 
@@ -80,16 +80,15 @@ class Table (val table: Array[String], deck: Deck, hand: Hand, calculateBoard: C
   }
 
   def getImage(path: String, width: Int, height: Int): ImageIcon = {
-    var imageIcon = new ImageIcon(getClass().getResource(path).getPath); // load the image to a imageIcon
-    var image = imageIcon.getImage(); // transform it
+    var imageIcon = new ImageIcon(getClass.getResource(path).getPath); // load the image to a imageIcon
+    var image = imageIcon.getImage; // transform it
     var newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-    imageIcon = new ImageIcon(newimg);
-    return imageIcon
+    imageIcon = new ImageIcon(newimg)
+    imageIcon
   }
 
   def createNewTableLabel(activeCard: ImageIcon, unactiveCard: ImageIcon, cardNumber: Int, WIDTH: Int, HEIGHT: Int, borderSize: Int, rec: Dimension): Label = {
-    var label = new Label{
-
+    val label = new Label {
 
 
       icon = unactiveCard
@@ -98,15 +97,15 @@ class Table (val table: Array[String], deck: Deck, hand: Hand, calculateBoard: C
       maximumSize = rec
       preferredSize = rec
 
-      if(cardNumber < 3) listenTo(flopButton)
-      if(cardNumber == 3)listenTo(turnButton)
-      if(cardNumber == 4)listenTo(riverButton)
-      for(button <- deck.cardButtons)
+      if (cardNumber < 3) listenTo(flopButton)
+      if (cardNumber == 3) listenTo(turnButton)
+      if (cardNumber == 4) listenTo(riverButton)
+      for (button <- deck.cardButtons)
         listenTo(button._1)
 
 
       def activateFlop() {
-        if(hand.handReady && !flopReady && !activeFlop(cardNumber)  && cardNumber < 3) {
+        if (hand.handReady && !flopReady && !activeFlop(cardNumber) && cardNumber < 3) {
           activeFlop(cardNumber) = true
           icon = activeCard
           deck.activateAll()
@@ -114,6 +113,7 @@ class Table (val table: Array[String], deck: Deck, hand: Hand, calculateBoard: C
         }
 
       }
+
       def activateTurn() {
         if (hand.handReady && flopReady && !turnReady && !activeTurn && cardNumber == 3) {
           activeTurn = true
@@ -121,8 +121,8 @@ class Table (val table: Array[String], deck: Deck, hand: Hand, calculateBoard: C
           icon = activeCard
           calculateBoard.policzButton.enabled = false
         }
-        return
       }
+
       def activateRiver() {
         if (hand.handReady && flopReady && turnReady && !riverReady && cardNumber == 4) {
           activeRiver = true
@@ -130,24 +130,23 @@ class Table (val table: Array[String], deck: Deck, hand: Hand, calculateBoard: C
           icon = activeCard
           calculateBoard.policzButton.enabled = false
         }
-        return
       }
 
 
-      def chosenCard(num:Int, image: String): Unit ={
-        if(activeFlop(0) && card(0) == -1 && cardNumber == 0){
+      def chosenCard(num: Int, image: String): Unit = {
+        if (activeFlop(0) && card(0) == -1 && cardNumber == 0) {
           icon = getImage(image, WIDTH, HEIGHT)
           deck.cardIsUsed(num)
           activeFlop(0) = false
           card(cardNumber) = num
 
         }
-        else if(activeFlop(1) && card(0) != -1 && card(1) == -1 && cardNumber == 1 && card(0) != num) {
+        else if (activeFlop(1) && card(0) != -1 && card(1) == -1 && cardNumber == 1 && card(0) != num) {
           icon = getImage(image, WIDTH, HEIGHT)
           deck.cardIsUsed(num)
           card(cardNumber) = num
         }
-        else if(activeFlop(2) && card(0) != -1 && card(1) != -1 && card(2) == -1 && cardNumber == 2 && card(1) != num){
+        else if (activeFlop(2) && card(0) != -1 && card(1) != -1 && card(2) == -1 && cardNumber == 2 && card(1) != num) {
           icon = getImage(image, WIDTH, HEIGHT)
           deck.cardIsUsed(num)
           card(cardNumber) = num
@@ -160,7 +159,7 @@ class Table (val table: Array[String], deck: Deck, hand: Hand, calculateBoard: C
           turnButton.enabled = true
           calculateBoard.policzButton.enabled = true
         }
-        else if(activeTurn && card(3) == -1 && cardNumber == 3){
+        else if (activeTurn && card(3) == -1 && cardNumber == 3) {
           icon = getImage(image, WIDTH, HEIGHT)
           deck.cardIsUsed(num)
           card(cardNumber) = num
@@ -171,7 +170,7 @@ class Table (val table: Array[String], deck: Deck, hand: Hand, calculateBoard: C
           riverButton.enabled = true
           calculateBoard.policzButton.enabled = true
         }
-        else if(activeRiver && card(4) == -1 && cardNumber == 4){
+        else if (activeRiver && card(4) == -1 && cardNumber == 4) {
           icon = getImage(image, WIDTH, HEIGHT)
           deck.cardIsUsed(num)
           card(cardNumber) = num
@@ -182,21 +181,19 @@ class Table (val table: Array[String], deck: Deck, hand: Hand, calculateBoard: C
           calculateBoard.policzButton.enabled = true
         }
         else
-          return
 
       }
 
-      for(button <- deck.cardButtons)
-        reactions += {case ButtonClicked(button._1) => chosenCard(button._2,button._3)}
-      reactions += {case ButtonClicked(`flopButton`) => activateFlop() }
-      reactions += {case ButtonClicked(`turnButton`) => activateTurn()}
-      reactions += {case ButtonClicked(`riverButton`) => activateRiver()}
-
+      for (button <- deck.cardButtons)
+        reactions += { case ButtonClicked(button._1) => chosenCard(button._2, button._3) }
+      reactions += { case ButtonClicked(`flopButton`) => activateFlop() }
+      reactions += { case ButtonClicked(`turnButton`) => activateTurn() }
+      reactions += { case ButtonClicked(`riverButton`) => activateRiver() }
 
 
       border = Swing.EmptyBorder(borderSize, borderSize, borderSize, borderSize)
     }
-    return label
+    label
   }
 
 }
