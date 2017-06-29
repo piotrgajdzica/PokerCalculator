@@ -11,7 +11,6 @@ class HandComparator extends ((List[Card], List[Card], List[Card], Rank, Rank) =
 //    return 1
 
     if (otherRank > myRank) {
-      //          println((remainingSet(i), remainingSet(j)))
       Result.LOSS
     }
     else if(otherRank == myRank) {

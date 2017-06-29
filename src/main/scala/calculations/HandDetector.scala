@@ -1,9 +1,6 @@
 package calculations
 
 import calculations.Rank.Rank
-/**
-  * Created by piotrek on 25.06.2017.
-  */
 
 
 class HandDetector(val cards: List[Card]) {
@@ -89,8 +86,8 @@ class HandDetector(val cards: List[Card]) {
 
     val sortedCards = cards sortBy (_.number) sortBy(_.color)
 
-    var lastNumber = sortedCards(0).number
-    var lastColor = sortedCards(0).color
+    var lastNumber = sortedCards.head.number
+    var lastColor = sortedCards.head.color
     var counter = 0
 
     for(card <- sortedCards.tail) {

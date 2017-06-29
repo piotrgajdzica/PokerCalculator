@@ -6,12 +6,10 @@ import calculations.Result.Result
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 
-/**
-  * Created by piotrek on 26.06.2017.
-  */
+
 class EmptyTableCalculator(val hand: Set[Card], val opponentNumber: Int) extends Calculator {
 
-  val remainingSet: Set[Card] = Card.fullSet.filterNot(hand.contains(_))
+  val remainingSet: Set[Card] = Card.fullSet.diff(hand)
 
   override def winningCombinations: (Double, Double, Double) = {
 
@@ -20,7 +18,7 @@ class EmptyTableCalculator(val hand: Set[Card], val opponentNumber: Int) extends
     val repeatNumber = 100000.0
 
 
-    for(i <- 1 to repeatNumber.toInt){
+    for(_ <- 1 to repeatNumber.toInt){
       val tmpSet = mutable.Set.empty[Card]
       tmpSet ++= remainingSet
 
@@ -61,7 +59,7 @@ class EmptyTableCalculator(val hand: Set[Card], val opponentNumber: Int) extends
 
   def fillList(number: Int, func : => mutable.Set[Card]): List[mutable.Set[Card]] ={
     val table = new ListBuffer[mutable.Set[Card]]()
-    for(i <- 1 to number)
+    for(_ <- 1 to number)
       table += func
 
     table.toList
@@ -69,7 +67,6 @@ class EmptyTableCalculator(val hand: Set[Card], val opponentNumber: Int) extends
 
 
   def getRandomSet(number: Int, availableCards: mutable.Set[Card]): mutable.Set[Card] ={
-    var counter = 0
     var table = mutable.Set.empty[Card]
 
     while(table.size < number) {

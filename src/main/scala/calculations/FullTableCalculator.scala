@@ -1,10 +1,8 @@
 package calculations
 
-/**
-  * Created by piotrek on 25.06.2017.
-  */
+
 class FullTableCalculator(val hand: Set[Card], val table: Set[Card]) extends Calculator {
-  val remainingSet: Set[Card] = Card.fullSet.filterNot((hand ++ table).contains(_))
+  val remainingSet: Set[Card] = Card.fullSet.diff(hand ++ table)
   private val remainingList: List[Card] = remainingSet.toList
   private val tableList = table.toList
   private val handList = hand.toList

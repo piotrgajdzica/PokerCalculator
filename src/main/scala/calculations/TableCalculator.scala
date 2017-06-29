@@ -1,8 +1,6 @@
 package calculations
 
-/**
-  * Created by piotrek on 25.06.2017.
-  */
+
 class TableCalculator extends ((Set[Card], Set[Card], Int) => (Double, Double, Double)) {
   override def apply(hand: Set[Card], table: Set[Card], opponentNumber: Int) : (Double, Double, Double) = {
     table.size match{
