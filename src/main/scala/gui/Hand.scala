@@ -105,7 +105,7 @@ class Hand(val hand: Array[String], val deck: Deck, calculateBoard: CalculateBoa
           handReady = true
           handButton.enabled = false
           flopButton.enabled = true
-          calculateBoard.policzButton.enabled = true
+          calculateBoard.countButton.enabled = true
         }
 
 
