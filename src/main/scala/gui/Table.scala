@@ -180,7 +180,6 @@ class Table (val table: Array[String], deck: Deck, hand: Hand, calculateBoard: C
           riverButton.enabled = false
           calculateBoard.policzButton.enabled = true
         }
-        else
 
       }
 
