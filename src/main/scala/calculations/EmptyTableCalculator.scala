@@ -22,19 +22,12 @@ class EmptyTableCalculator(val hand: Set[Card], val opponentNumber: Int) extends
       val tmpSet = mutable.Set.empty[Card]
       tmpSet ++= remainingSet
 
-      val table = getRandomSet(5, tmpSet)
-      val hands = fillList(opponentNumber, getRandomSet(2, tmpSet))
-
-      val comp = compareHands(hands, table)
-
-      if(comp == Result.WIN)
-        win += 1
-      else if(comp == Result.DRAW)
-        draw += 1
-
-//      println(tmpSet.size)
+      compareHands(fillList(opponentNumber, getRandomSet(2, tmpSet)), getRandomSet(5, tmpSet)) match{
+        case Result.WIN => win += 1
+        case Result.DRAW => draw += 1
+        case _ =>
+      }
     }
-
 
     (win / repeatNumber, draw / repeatNumber, (repeatNumber - win - draw) / repeatNumber)
   }
@@ -43,18 +36,18 @@ class EmptyTableCalculator(val hand: Set[Card], val opponentNumber: Int) extends
 
     val myRank = new HandDetector((hand ++ table).toList).detect()
     val handComparator = new HandComparator()
-    var draw = false
+    var result = Result.WIN
 
     for(otherHand <- otherHands){
       val otherRank = new HandDetector((otherHand ++ table).toList).detect()
 
-      val comp = handComparator(hand.toList, otherHand.toList, table.toList, myRank, otherRank)
-
-      if(comp == Result.LOSS) return Result.LOSS
-      if(comp == Result.DRAW) draw = true
+      handComparator(hand.toList, otherHand.toList, table.toList, myRank, otherRank) match{
+        case Result.LOSS => return Result.LOSS
+        case Result.DRAW => result = Result.DRAW
+        case _ =>
+      }
     }
-    if(draw) Result.DRAW
-    else Result.WIN
+    result
   }
 
   def fillList(number: Int, func : => mutable.Set[Card]): List[mutable.Set[Card]] ={

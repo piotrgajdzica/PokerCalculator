@@ -33,9 +33,12 @@ class HandDetector(val cards: List[Card]) {
 
 
   def detectPair: Boolean = {
-    for (i <- 0 until cards.size - 1)
-      if(cards(i).number == cards(i + 1).number)
-        return true
+
+    var lastNumber = cards.head.number
+
+    for(card <- cards.tail)
+      if(card.number == lastNumber) return true
+      else lastNumber = card.number
     false
   }
 
@@ -61,7 +64,7 @@ class HandDetector(val cards: List[Card]) {
       if(cards(i).number == cards(i + 1).number)
         counter+=1
 
-    counter == 2
+    counter >= 2
   }
 
 
@@ -129,13 +132,14 @@ class HandDetector(val cards: List[Card]) {
     var triple = 0
     var pair = 0
 
-    for (i <- 0 until cards.size - 2)
+    for (i <- 0 until cards.size - 2) {
       if (cards(i).number == cards(i + 1).number && cards(i).number == cards(i + 2).number) {
         if (triple == 0)
           triple = cards(i).number
       }
-      else if (cards(i).number == cards(i + 1).number && cards(i).number != triple)
+      if (cards(i).number == cards(i + 1).number && cards(i).number != triple)
         pair = cards(i).number
+    }
 
     pair != 0 && triple != 0
   }
