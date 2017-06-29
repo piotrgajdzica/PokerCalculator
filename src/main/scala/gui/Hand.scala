@@ -22,8 +22,8 @@ class Hand(val hand: Array[String], val deck: Deck, calculateBoard: CalculateBoa
   var flopButton: Button = new Button
 
 
-  val activeCardURL: String = "images/card_back_green.png"
-  val unactiveCardURL: String = "images/card_back_black.png"
+  val activeCardURL: String = "../card_back_green.png"
+  val unactiveCardURL: String = "../card_back_black.png"
   val activeCard: ImageIcon = getImage(activeCardURL, WIDTH, HEIGHT)
   val unactiveCard: ImageIcon = getImage(unactiveCardURL, WIDTH, HEIGHT)
 
@@ -55,7 +55,8 @@ class Hand(val hand: Array[String], val deck: Deck, calculateBoard: CalculateBoa
     val image = imageIcon.getImage() // transform it
     val newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH) // scale it the smooth way
     imageIcon = new ImageIcon(newimg)
-    return imageIcon
+    imageIcon
+
   }
 
   def createNewHandLabel(activeCard: ImageIcon, unactiveCard: ImageIcon, cardNumber: Int,  WIDTH: Int, HEIGHT: Int, borderSize: Int, rec: Dimension): Label = {
@@ -75,7 +76,6 @@ class Hand(val hand: Array[String], val deck: Deck, calculateBoard: CalculateBoa
 
 
       def activate() {
-        calculateBoard.resultLabel.text = ""
         if(!handReady && cardNumber==0 ){
           icon = activeCard
           active(0) = true
@@ -105,7 +105,7 @@ class Hand(val hand: Array[String], val deck: Deck, calculateBoard: CalculateBoa
           handReady = true
           handButton.enabled = false
           flopButton.enabled = true
-          calculateBoard.countButton.enabled = true
+          calculateBoard.policzButton.enabled = true
         }
 
 
