@@ -15,8 +15,8 @@ class Table (val table: Array[String], deck: Deck, hand: Hand, calculateBoard: C
   val HEIGHT = 120
   val rec = new Dimension(WIDTH,HEIGHT)
 
-  val activeCardURL: String = "images/card_back_green.png"
-  val unactiveCardURL: String = "images/card_back_black.png"
+  val activeCardURL: String = "../card_back_green.png"
+  val unactiveCardURL: String = "../card_back_black.png"
   val activeCard: ImageIcon = getImage(activeCardURL, WIDTH, HEIGHT)
   val unactiveCard: ImageIcon = getImage(unactiveCardURL, WIDTH, HEIGHT)
 
