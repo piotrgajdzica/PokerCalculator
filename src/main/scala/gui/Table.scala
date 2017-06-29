@@ -80,15 +80,15 @@ class Table (val table: Array[String], deck: Deck, hand: Hand, calculateBoard: C
   }
 
   def getImage(path: String, width: Int, height: Int): ImageIcon = {
-    var imageIcon = new ImageIcon(getClass().getResource(path).getPath); // load the image to a imageIcon
-    var image = imageIcon.getImage(); // transform it
-    var newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-    imageIcon = new ImageIcon(newimg);
-    return imageIcon
+    var imageIcon = new ImageIcon(getClass().getResource(path).getPath) // load the image to a imageIcon
+    val image = imageIcon.getImage() // transform it
+    val newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH) // scale it the smooth way
+    imageIcon = new ImageIcon(newimg)
+    imageIcon
   }
 
   def createNewTableLabel(activeCard: ImageIcon, unactiveCard: ImageIcon, cardNumber: Int, WIDTH: Int, HEIGHT: Int, borderSize: Int, rec: Dimension): Label = {
-    var label = new Label{
+    val label = new Label{
 
 
 
@@ -110,7 +110,7 @@ class Table (val table: Array[String], deck: Deck, hand: Hand, calculateBoard: C
           activeFlop(cardNumber) = true
           icon = activeCard
           deck.activateAll()
-          calculateBoard.policzButton.enabled = false
+          calculateBoard.countButton.enabled = false
         }
 
       }
@@ -119,18 +119,18 @@ class Table (val table: Array[String], deck: Deck, hand: Hand, calculateBoard: C
           activeTurn = true
           deck.activateAll()
           icon = activeCard
-          calculateBoard.policzButton.enabled = false
+          calculateBoard.countButton.enabled = false
         }
-        return
+
       }
       def activateRiver() {
         if (hand.handReady && flopReady && turnReady && !riverReady && cardNumber == 4) {
           activeRiver = true
           deck.activateAll()
           icon = activeCard
-          calculateBoard.policzButton.enabled = false
+          calculateBoard.countButton.enabled = false
         }
-        return
+
       }
 
 
@@ -158,7 +158,7 @@ class Table (val table: Array[String], deck: Deck, hand: Hand, calculateBoard: C
           flopReady = true
           flopButton.enabled = false
           turnButton.enabled = true
-          calculateBoard.policzButton.enabled = true
+          calculateBoard.countButton.enabled = true
         }
         else if(activeTurn && card(3) == -1 && cardNumber == 3){
           icon = getImage(image, WIDTH, HEIGHT)
@@ -169,7 +169,7 @@ class Table (val table: Array[String], deck: Deck, hand: Hand, calculateBoard: C
           turnReady = true
           turnButton.enabled = false
           riverButton.enabled = true
-          calculateBoard.policzButton.enabled = true
+          calculateBoard.countButton.enabled = true
         }
         else if(activeRiver && card(4) == -1 && cardNumber == 4){
           icon = getImage(image, WIDTH, HEIGHT)
@@ -179,10 +179,9 @@ class Table (val table: Array[String], deck: Deck, hand: Hand, calculateBoard: C
           activeRiver = false
           riverReady = true
           riverButton.enabled = false
-          calculateBoard.policzButton.enabled = true
+          calculateBoard.countButton.enabled = true
         }
-        else
-          return
+
 
       }
 
@@ -196,7 +195,7 @@ class Table (val table: Array[String], deck: Deck, hand: Hand, calculateBoard: C
 
       border = Swing.EmptyBorder(borderSize, borderSize, borderSize, borderSize)
     }
-    return label
+    label
   }
 
 }
