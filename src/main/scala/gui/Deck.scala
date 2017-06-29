@@ -19,27 +19,27 @@ class Deck (val deck: Array[(String, calculations.Color.Value, Int)]){
   var usedCards = new ListBuffer[Button]()
 
 
-  for ((imageURL, color, value) <- deck){
+  for ((imageURL, _, _) <- deck){
     //println(imageURL + " " +   color + " " + value)
     cardButtons(i) = (createNewDeckButton(imageURL, WIDTH, HEIGHT, 10, rec),i,imageURL)
     i += 1
   }
   val deckPanel = new GridPanel(4,13){
-    for(j <- (0 until 52)) contents += cardButtons(j)._1
+    for(j <- 0 until 52) contents += cardButtons(j)._1
 
     border = Swing.EmptyBorder(10, 10, 10, 10)
   }
 
   def changeSizeOfCard(path: String, width: Int, height: Int): ImageIcon = {
-    var imageIcon = new ImageIcon(getClass().getResource(path).getPath); // load the image to a imageIcon
-    var image = imageIcon.getImage(); // transform it
-    var newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-    imageIcon = new ImageIcon(newimg);
+    var imageIcon = new ImageIcon(getClass().getResource(path).getPath) // load the image to a imageIcon
+    val image = imageIcon.getImage() // transform it
+    val  newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH) // scale it the smooth way
+    imageIcon = new ImageIcon(newimg)
     return imageIcon
   }
 
   def createNewDeckButton(imageURL: String, WIDTH: Int, HEIGHT: Int, borderSize: Int, rec: Dimension): Button = {
-    var button = new Button{
+    val button = new Button{
       val myImage: ImageIcon = changeSizeOfCard(imageURL, WIDTH, HEIGHT)
       icon = myImage
 

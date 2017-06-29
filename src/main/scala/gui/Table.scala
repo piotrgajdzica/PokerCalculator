@@ -106,29 +106,32 @@ class Table (val table: Array[String], deck: Deck, hand: Hand, calculateBoard: C
 
 
       def activateFlop() {
+        calculateBoard.resultLabel.text = ""
         if(hand.handReady && !flopReady && !activeFlop(cardNumber)  && cardNumber < 3) {
           activeFlop(cardNumber) = true
           icon = activeCard
           deck.activateAll()
-          calculateBoard.policzButton.enabled = false
+          calculateBoard.countButton.enabled = false
         }
 
       }
       def activateTurn() {
+        calculateBoard.resultLabel.text = ""
         if (hand.handReady && flopReady && !turnReady && !activeTurn && cardNumber == 3) {
           activeTurn = true
           deck.activateAll()
           icon = activeCard
-          calculateBoard.policzButton.enabled = false
+          calculateBoard.countButton.enabled = false
         }
         return
       }
       def activateRiver() {
+        calculateBoard.resultLabel.text = ""
         if (hand.handReady && flopReady && turnReady && !riverReady && cardNumber == 4) {
           activeRiver = true
           deck.activateAll()
           icon = activeCard
-          calculateBoard.policzButton.enabled = false
+          calculateBoard.countButton.enabled = false
         }
         return
       }
@@ -158,7 +161,7 @@ class Table (val table: Array[String], deck: Deck, hand: Hand, calculateBoard: C
           flopReady = true
           flopButton.enabled = false
           turnButton.enabled = true
-          calculateBoard.policzButton.enabled = true
+          calculateBoard.countButton.enabled = true
         }
         else if(activeTurn && card(3) == -1 && cardNumber == 3){
           icon = getImage(image, WIDTH, HEIGHT)
@@ -169,7 +172,7 @@ class Table (val table: Array[String], deck: Deck, hand: Hand, calculateBoard: C
           turnReady = true
           turnButton.enabled = false
           riverButton.enabled = true
-          calculateBoard.policzButton.enabled = true
+          calculateBoard.countButton.enabled = true
         }
         else if(activeRiver && card(4) == -1 && cardNumber == 4){
           icon = getImage(image, WIDTH, HEIGHT)
@@ -179,7 +182,7 @@ class Table (val table: Array[String], deck: Deck, hand: Hand, calculateBoard: C
           activeRiver = false
           riverReady = true
           riverButton.enabled = false
-          calculateBoard.policzButton.enabled = true
+          calculateBoard.countButton.enabled = true
         }
         else
           return

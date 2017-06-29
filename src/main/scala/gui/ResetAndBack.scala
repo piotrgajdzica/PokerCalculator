@@ -23,6 +23,7 @@ class ResetAndBack(val deck: Deck, val hand: Hand, val table: Table,val calculat
   backButton.reactions += {case ButtonClicked(`backButton`) => back()}
 
   def reset(): Unit ={
+    calculateBoard.resultLabel.text = ""
     table.flopButton.enabled = false
     table.riverButton.enabled = false
     table.turnButton.enabled = false
@@ -37,7 +38,7 @@ class ResetAndBack(val deck: Deck, val hand: Hand, val table: Table,val calculat
     for(i <- 0 until 5)
       table.card(i) = -1
 
-    calculateBoard.policzButton.enabled = false
+    calculateBoard.countButton.enabled = false
 
     for(i <- 0 until 5) {
       table.tableLabels(i).icon = table.unactiveCard
@@ -58,6 +59,7 @@ class ResetAndBack(val deck: Deck, val hand: Hand, val table: Table,val calculat
   }
 
   def back(): Unit ={
+    calculateBoard.resultLabel.text = ""
 
     if(table.riverReady || table.activeRiver){
       table.riverReady = false
@@ -71,7 +73,7 @@ class ResetAndBack(val deck: Deck, val hand: Hand, val table: Table,val calculat
         table.card(4) = -1
       }
 
-      calculateBoard.policzButton.enabled = true
+      calculateBoard.countButton.enabled = true
       deck.disactivateAll()
 
     }
@@ -88,7 +90,7 @@ class ResetAndBack(val deck: Deck, val hand: Hand, val table: Table,val calculat
         table.card(3) = -1
       }
 
-      calculateBoard.policzButton.enabled = true
+      calculateBoard.countButton.enabled = true
       deck.disactivateAll()
 
     }
@@ -107,7 +109,7 @@ class ResetAndBack(val deck: Deck, val hand: Hand, val table: Table,val calculat
       }
 
       deck.disactivateAll()
-      calculateBoard.policzButton.enabled = true
+      calculateBoard.countButton.enabled = true
     }
     else if(hand.handReady || hand.active(1)){
       hand.handReady = false
@@ -123,7 +125,7 @@ class ResetAndBack(val deck: Deck, val hand: Hand, val table: Table,val calculat
         hand.handLabels(i).icon = hand.unactiveCard
       }
 
-      calculateBoard.policzButton.enabled = false
+      calculateBoard.countButton.enabled = false
       deck.disactivateAll()
 
     }

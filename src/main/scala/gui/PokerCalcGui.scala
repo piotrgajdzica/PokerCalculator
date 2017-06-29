@@ -19,12 +19,12 @@ object PokerCalcGui extends SimpleSwingApplication {
 
     val deck = new Deck(cardSupplies.deck)
     val calculateBoard = new CalculateBoard(deck, opponents, cardSupplies)
-    val hand = calculateBoard.hand
-    val table = calculateBoard.table
+    val hand: Hand = calculateBoard.hand
+    val table: Table = calculateBoard.table
     val resetAndBack = new ResetAndBack(deck, hand, table, calculateBoard)
     hand.flopButton = table.flopButton
 
-    val middlePanel = new SplitPane(Orientation.Vertical, opponents.infoPrzeciwnik, calculateBoard.infoWynik ) {
+    val middlePanel = new SplitPane(Orientation.Vertical, opponents.infoPrzeciwnik, calculateBoard.infoResult ) {
       // oneTouchExpandable = false
       // dividerLocation = 150
     }

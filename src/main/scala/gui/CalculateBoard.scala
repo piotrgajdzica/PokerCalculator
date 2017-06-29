@@ -12,20 +12,21 @@ class CalculateBoard(deck: Deck, opponents: Opponents, cardSupplies: CardSupplie
   val hand = new Hand(cardSupplies.hand, deck, this)
   val table = new Table(cardSupplies.table, deck, hand, this)
 
-  val policzButton = new Button{
+  val countButton = new Button{
     text = "Calculate"
     border = Swing.EmptyBorder(10, 10, 10, 10)
     enabled = false
 
   }
-  val wynikLabel = new Label {
+  val resultLabel = new Label {
 
-    text = "Wynik"
+    text = ""
     border = Swing.EmptyBorder(5, 5, 5, 5)
-    listenTo(policzButton)
+    listenTo(countButton)
     var t = 1
     def convert() {
 
+      text = "calculating..."
       val nrOfOpp : Int = opponents.opponentComboBox.item
 
       var handCards: Set[calculations.Card] = Set()
@@ -42,16 +43,18 @@ class CalculateBoard(deck: Deck, opponents: Opponents, cardSupplies: CardSupplie
 
 
       val calculate = new calculations.TableCalculator()
-      text = calculate(handCards, tableCards, nrOfOpp).toString()
+      val result: (Double, Double, Double) = calculate(handCards, tableCards, nrOfOpp)
+      text = "Chance to win: " + (result._1 * 100).toInt + "% Chance for tie: " +
+        (result._2 * 100).toInt + "%"
     }
 
     reactions += {
-      case ButtonClicked(`policzButton`)  => convert()
+      case ButtonClicked(`countButton`)  => convert()
     }
 
   }
 
-  val infoWynik = new SplitPane(Orientation.Vertical, policzButton, wynikLabel) {
+  val infoResult = new SplitPane(Orientation.Vertical, countButton, resultLabel) {
     // oneTouchExpandable = false
     // dividerLocation = 150
   }

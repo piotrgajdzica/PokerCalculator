@@ -51,10 +51,10 @@ class Hand(val hand: Array[String], val deck: Deck, calculateBoard: CalculateBoa
 
 
   def getImage(path: String, width: Int, height: Int): ImageIcon = {
-    var imageIcon = new ImageIcon(getClass().getResource(path).getPath); // load the image to a imageIcon
-    var image = imageIcon.getImage(); // transform it
-    var newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-    imageIcon = new ImageIcon(newimg);
+    var imageIcon = new ImageIcon(getClass().getResource(path).getPath) // load the image to a imageIcon
+    val image = imageIcon.getImage() // transform it
+    val newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH) // scale it the smooth way
+    imageIcon = new ImageIcon(newimg)
     return imageIcon
   }
 
@@ -75,6 +75,7 @@ class Hand(val hand: Array[String], val deck: Deck, calculateBoard: CalculateBoa
 
 
       def activate() {
+        calculateBoard.resultLabel.text = ""
         if(!handReady && cardNumber==0 ){
           icon = activeCard
           active(0) = true
@@ -104,7 +105,7 @@ class Hand(val hand: Array[String], val deck: Deck, calculateBoard: CalculateBoa
           handReady = true
           handButton.enabled = false
           flopButton.enabled = true
-          calculateBoard.policzButton.enabled = true
+          calculateBoard.countButton.enabled = true
         }
 
 
