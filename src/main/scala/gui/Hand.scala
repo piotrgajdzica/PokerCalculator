@@ -117,7 +117,7 @@ class Hand(val hand: Array[String], val deck: Deck, calculateBoard: CalculateBoa
 
 
     }
-    return label
+    label
   }
 
 

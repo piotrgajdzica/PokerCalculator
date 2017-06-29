@@ -35,7 +35,7 @@ class Deck (val deck: Array[(String, calculations.Color.Value, Int)]){
     val image = imageIcon.getImage() // transform it
     val  newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH) // scale it the smooth way
     imageIcon = new ImageIcon(newimg)
-    return imageIcon
+    imageIcon
   }
 
   def createNewDeckButton(imageURL: String, WIDTH: Int, HEIGHT: Int, borderSize: Int, rec: Dimension): Button = {
@@ -51,7 +51,7 @@ class Deck (val deck: Array[(String, calculations.Color.Value, Int)]){
       val myValue = 1
       border = Swing.EmptyBorder(borderSize, borderSize, borderSize, borderSize)
     }
-    return button
+    button
   }
 
 
